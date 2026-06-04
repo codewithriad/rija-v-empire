@@ -16,7 +16,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "RIJA-V EMPIRE Nigeria Limited | Multi-Sector Business Solutions",
+  title: "RIJA-V EMPIRE NIGERIA LIMITED | Multi-Sector Business Solutions",
   description:
     "RIJA-V EMPIRE is a diversified Nigerian company delivering excellence across Agriculture, Education, Media, Real Estate, Consultancy, Fashion, Trading, and Investment. Building the future of Nigerian enterprise.",
   keywords: [
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     "Investment",
     "Multi-sector company",
   ],
-  authors: [{ name: "RIJA-V EMPIRE Nigeria Limited" }],
+  authors: [{ name: "RIJA-V EMPIRE NIGERIA LIMITED" }],
   openGraph: {
-    title: "RIJA-V EMPIRE Nigeria Limited",
+    title: "RIJA-V EMPIRE NIGERIA LIMITED",
     description:
       "Empowering Multi-Industry Growth Across Nigeria. A diversified powerhouse across 10+ sectors.",
     type: "website",
