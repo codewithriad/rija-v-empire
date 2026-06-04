@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export default function CTASection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
     <section
@@ -15,7 +15,7 @@ export default function CTASection() {
       aria-labelledby="cta-heading"
       style={{
         background:
-          'linear-gradient(135deg, rgba(6,78,59,0.55) 0%, rgba(76,29,149,0.50) 100%)',
+          "linear-gradient(135deg, rgba(6,78,59,0.55) 0%, rgba(76,29,149,0.50) 100%)",
       }}
     >
       {/* ---- Decorative animated gradient orbs ---- */}
@@ -23,41 +23,41 @@ export default function CTASection() {
         className="pointer-events-none absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full opacity-40 blur-3xl"
         style={{
           background:
-            'radial-gradient(circle, rgba(22,163,74,0.7) 0%, transparent 70%)',
+            "radial-gradient(circle, rgba(22,163,74,0.7) 0%, transparent 70%)",
         }}
         animate={{
           x: [0, 40, -20, 0],
           y: [0, -30, 20, 0],
           scale: [1, 1.15, 0.95, 1],
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
       <motion.div
         className="pointer-events-none absolute -bottom-24 -right-24 h-[350px] w-[350px] rounded-full opacity-35 blur-3xl"
         style={{
           background:
-            'radial-gradient(circle, rgba(124,58,237,0.7) 0%, transparent 70%)',
+            "radial-gradient(circle, rgba(124,58,237,0.7) 0%, transparent 70%)",
         }}
         animate={{
           x: [0, -30, 25, 0],
           y: [0, 25, -15, 0],
           scale: [1, 0.9, 1.1, 1],
         }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
       <motion.div
         className="pointer-events-none absolute right-1/3 top-1/4 h-[200px] w-[200px] rounded-full opacity-25 blur-2xl"
         style={{
           background:
-            'radial-gradient(circle, rgba(245,158,11,0.6) 0%, transparent 70%)',
+            "radial-gradient(circle, rgba(245,158,11,0.6) 0%, transparent 70%)",
         }}
         animate={{
           x: [0, 20, -10, 0],
           y: [0, -20, 10, 0],
         }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
 
@@ -70,7 +70,10 @@ export default function CTASection() {
               ? { opacity: 1, scale: 1, y: 0 }
               : { opacity: 0, scale: 0.88, y: 40 }
           }
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
+          transition={{
+            duration: 0.7,
+            ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+          }}
           className="glass-card px-6 py-16 text-center sm:px-12 md:px-16 md:py-20"
         >
           {/* Heading */}
@@ -78,7 +81,7 @@ export default function CTASection() {
             id="cta-heading"
             className="mx-auto max-w-2xl text-4xl font-bold leading-tight text-white md:text-5xl"
           >
-            Let&rsquo;s Build Your Business{' '}
+            Let&rsquo;s Build Your Business{" "}
             <span className="text-gradient-purple-green">Together</span>
           </h2>
 
@@ -92,7 +95,7 @@ export default function CTASection() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
             {/* Contact Us */}
             <a
-              href="mailto:contact@rijavempire.com"
+              href="mailto:rijaempirenigerialimited@gmail.com"
               className="btn-neon-purple inline-flex items-center gap-2 text-center"
               aria-label="Send us an email"
             >
@@ -117,7 +120,7 @@ export default function CTASection() {
 
             {/* WhatsApp Us */}
             <a
-              href="https://wa.me/2340000000000"
+              href="https://wa.me/2348166431574"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-neon-green inline-flex items-center gap-2 text-center"
