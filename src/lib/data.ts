@@ -38,9 +38,9 @@ export const companyInfo = {
     "A diversified powerhouse delivering excellence across Agriculture, Education, Media, Real Estate, and beyond — building the future of Nigerian enterprise.",
   about:
     "RIJA-V EMPIRE NIGERIA LIMITED is a dynamic, multi-sector company with a proven track record across diverse industries. From agriculture and education to media production and real estate development, we deliver scalable solutions that drive growth, create value, and transform communities across Nigeria.",
-  email: "contact@rijavempire.com",
-  phone: "+234 000 000 0000",
-  whatsapp: "+2340000000000",
+  email: "rijaempirenigerialimited@gmail.com",
+  phone: "+2348166431574",
+  whatsapp: "+2348166431574",
   location: "Nigeria",
   facebook: "https://facebook.com/rijavempire",
   instagram: "https://instagram.com/rijavempire",
