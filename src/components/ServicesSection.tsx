@@ -70,7 +70,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative py-24 bg-section-gradient"
+      className="relative overflow-hidden py-24 bg-section-gradient"
       aria-labelledby="services-heading"
     >
       {/* Decorative elements */}
