@@ -1,18 +1,20 @@
-'use client';
+"use client";
 
-import { motion, Variants } from 'framer-motion';
-import { companyInfo, services } from '@/lib/data';
+import Link from "next/link";
+import Image from "next/image";
+import { motion, Variants } from "framer-motion";
+import { companyInfo, services } from "@/lib/data";
 
 const quickLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [
   {
-    label: 'Facebook',
+    label: "Facebook",
     href: companyInfo.facebook,
     icon: (
       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -21,7 +23,7 @@ const socialLinks = [
     ),
   },
   {
-    label: 'Instagram',
+    label: "Instagram",
     href: companyInfo.instagram,
     icon: (
       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -30,7 +32,7 @@ const socialLinks = [
     ),
   },
   {
-    label: 'LinkedIn',
+    label: "LinkedIn",
     href: companyInfo.linkedin,
     icon: (
       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -39,7 +41,7 @@ const socialLinks = [
     ),
   },
   {
-    label: 'Twitter',
+    label: "Twitter",
     href: companyInfo.twitter,
     icon: (
       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -65,18 +67,8 @@ const itemVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
-};
-
-const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-  if (href.startsWith('#')) {
-    e.preventDefault();
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
 };
 
 const Footer = () => {
@@ -101,13 +93,15 @@ const Footer = () => {
         >
           {/* Column 1 — Brand */}
           <motion.div variants={itemVariants}>
-            <a href="#home" onClick={(e) => handleSmoothScroll(e, '#home')} className="inline-block group">
-              <img
+            <Link href="/" className="inline-block group">
+              <Image
                 src="/logo.png"
                 alt="RIJA-V EMPIRE NIGERIA LIMITED Logo"
                 className="h-16 w-auto object-contain brightness-100 group-hover:scale-105 transition-transform duration-300"
+                width={160}
+                height={64}
               />
-            </a>
+            </Link>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
               {companyInfo.tagline}
             </p>
@@ -138,14 +132,13 @@ const Footer = () => {
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.href}>
-                    <a
+                    <Link
                       href={link.href}
-                      onClick={(e) => handleSmoothScroll(e, link.href)}
                       className="group flex items-center text-sm text-slate-400 transition-colors duration-300 hover:text-empire-green"
                     >
                       <span className="mr-2 inline-block h-1 w-1 rounded-full bg-empire-purple/50 transition-all duration-300 group-hover:w-2 group-hover:bg-empire-green" />
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -160,14 +153,13 @@ const Footer = () => {
             <ul className="space-y-3">
               {displayedServices.map((service) => (
                 <li key={service.id}>
-                  <a
-                    href="#services"
-                    onClick={(e) => handleSmoothScroll(e, '#services')}
+                  <Link
+                    href="/services"
                     className="group flex items-center text-sm text-slate-400 transition-colors duration-300 hover:text-empire-green"
                   >
                     <span className="mr-2 inline-block h-1 w-1 rounded-full bg-empire-purple/50 transition-all duration-300 group-hover:w-2 group-hover:bg-empire-green" />
                     {service.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -214,7 +206,7 @@ const Footer = () => {
                     </svg>
                   </span>
                   <a
-                    href={`tel:${companyInfo.phone.replace(/\s/g, '')}`}
+                    href={`tel:${companyInfo.phone.replace(/\s/g, "")}`}
                     className="text-sm text-slate-400 transition-colors duration-300 hover:text-empire-amber"
                   >
                     {companyInfo.phone}

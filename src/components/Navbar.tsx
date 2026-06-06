@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { navLinks, companyInfo } from "@/lib/data";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { navLinks } from "@/lib/data";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,7 +20,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // iOS-safe body scroll lock
+  // iOS-safe body scroll lock when mobile menu is open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
@@ -34,21 +37,6 @@ const Navbar = () => {
       document.body.style.width = "";
     };
   }, [mobileOpen]);
-
-  const handleLinkClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      e.preventDefault();
-      setMobileOpen(false);
-      // Small delay so menu close animation plays before scroll
-      setTimeout(() => {
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 300);
-    },
-    [],
-  );
 
   return (
     <>
@@ -74,22 +62,26 @@ const Navbar = () => {
           aria-label="Main navigation"
         >
           {/* Logo */}
-          <motion.a
-            href="#home"
-            onClick={(e) => handleLinkClick(e, "#home")}
-            className="relative flex items-center gap-2 group"
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Image
-              src="/logo.png"
-              alt="RIJA-V EMPIRE NIGERIA LIMITED Logo"
-              className="h-16 w-auto object-contain brightness-100 group-hover:scale-[1.03] transition-transform duration-300"
-              width={20}
-              height={20}
-            />
-          </motion.a>
+            <Link
+              href="/"
+              className="relative flex items-center gap-2 group"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Image
+                src="/logo.png"
+                alt="RIJA-V EMPIRE NIGERIA LIMITED Logo"
+                className="h-16 w-auto object-contain brightness-100 group-hover:scale-[1.03] transition-transform duration-300"
+                width={160}
+                height={64}
+                priority
+              />
+            </Link>
+          </motion.div>
 
           {/* Desktop Navigation Links */}
           <motion.ul
@@ -98,37 +90,55 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  className="relative rounded-lg px-4 py-2 text-sm font-medium text-slate-300 transition-colors duration-300 hover:text-white hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-empire-purple/50 focus-visible:ring-offset-2 focus-visible:ring-offset-empire-darker"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <li key={link.href} className="relative">
+                  <Link
+                    href={link.href}
+                    className={`relative rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-empire-purple/50 focus-visible:ring-offset-2 focus-visible:ring-offset-empire-darker ${
+                      isActive ? "text-white" : "text-slate-300 hover:text-white"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-glow"
+                        className="absolute inset-0 rounded-lg -z-10 bg-white/5 border border-empire-purple/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] shadow-empire-purple/5"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(22, 163, 74, 0.04) 100%)",
+                        }}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </motion.ul>
 
           {/* Desktop CTA + Mobile Hamburger */}
           <div className="flex items-center gap-3">
             {/* Desktop CTA */}
-            <motion.a
-              href="#contact"
-              onClick={(e) => handleLinkClick(e, "#contact")}
-              className="btn-neon-purple hidden px-5 py-2.5 text-sm md:inline-block"
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
+              className="hidden md:block"
             >
-              Get in Touch
-            </motion.a>
+              <Link
+                href="/contact"
+                className="btn-neon-purple px-5 py-2.5 text-sm inline-block cursor-pointer"
+              >
+                Get in Touch
+              </Link>
+            </motion.div>
 
             {/* Mobile Hamburger */}
             <button
               type="button"
-              className="relative flex h-10 w-10 items-center justify-center rounded-lg text-slate-300 transition-colors hover:bg-amber-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-empire-purple/50 md:hidden"
+              className="relative flex h-10 w-10 items-center justify-center rounded-lg text-slate-300 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-empire-purple/50 md:hidden"
               onClick={() => setMobileOpen((prev) => !prev)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -170,7 +180,7 @@ const Navbar = () => {
           </div>
         </nav>
 
-        {/* Mobile Menu — sits inside header so it stays fixed with it */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
@@ -189,24 +199,31 @@ const Navbar = () => {
               transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
             >
               <ul className="flex flex-col gap-1 px-4 py-4">
-                {navLinks.map((link, index) => (
-                  <motion.li
-                    key={link.href}
-                    role="menuitem"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ delay: index * 0.06 }}
-                  >
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleLinkClick(e, link.href)}
-                      className="block rounded-lg px-4 py-3 text-base font-medium text-slate-300 transition-colors duration-200 hover:bg-empire-purple/10 hover:text-white"
+                {navLinks.map((link, index) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <motion.li
+                      key={link.href}
+                      role="menuitem"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ delay: index * 0.06 }}
                     >
-                      {link.label}
-                    </a>
-                  </motion.li>
-                ))}
+                      <Link
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors duration-200 ${
+                          isActive
+                            ? "bg-empire-purple/10 text-white border-l-2 border-empire-purple px-3"
+                            : "text-slate-300 hover:bg-empire-purple/5 hover:text-white"
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
 
                 {/* Mobile CTA */}
                 <motion.li
@@ -216,13 +233,13 @@ const Navbar = () => {
                   transition={{ delay: navLinks.length * 0.06 }}
                   className="mt-2"
                 >
-                  <a
-                    href="#contact"
-                    onClick={(e) => handleLinkClick(e, "#contact")}
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileOpen(false)}
                     className="btn-neon-purple block w-full text-center"
                   >
                     Get in Touch
-                  </a>
+                  </Link>
                 </motion.li>
               </ul>
             </motion.div>
@@ -230,7 +247,7 @@ const Navbar = () => {
         </AnimatePresence>
       </header>
 
-      {/* Backdrop overlay — closes menu when tapping outside */}
+      {/* Backdrop overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
